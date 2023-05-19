@@ -1,0 +1,161 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+html,body{
+  display: grid;
+  height: 100%;
+  /* 1. 중앙 정렬 및 배경 색상 설정하기 */
+  margin:0 auto;
+  background-color: #F0F1F8;
+
+}
+.container{
+  /* 2. box css 입히기
+  1) 박스는 흰색으로 설정 #ffffff
+  2) 박스 모서리 둥글게 하기
+  3) 드롭 섀도우
+  */
+  background-color:#ffffff;
+  border-radius: 40px;
+  box-shadow:10px 10px 5px lightgray;
+  padding: 20px 30px;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 700px;
+  height: 400px;
+}
+.container header{
+  /* 3. "Password Strength Indicator" css 설정하기 */
+  font-size:35px;
+  font-weight: bold;
+  text-align:center;
+  margin-top:40px;
+  margin-bottom:40px;
+}
+.container form{
+  margin: 20px 5px 10px 5px;
+  position: relative;
+}
+.container form .field{
+  height: 45px;
+  width: 100%;
+  display: flex;
+  position: relative;
+  align-items: center;
+  display:flex;
+  justify-content: center;
+}
+
+form .field input{
+  width: 90%;
+  height: 150%;
+  outline: none;
+  transition: all 0.3s;
+  /* 4. input box의 여백, 테두리, 모서리, 폰트 설정하기 */
+  padding:10px;
+  border:2px solid #ccc;
+  border-radius:10px;
+  font-family: 'Poppins', sans-serif;
+  font-size:20px;
+}
+
+form .field input:focus{
+  /*5. input이 focus 되었을 때의 테두리 색상 설정하기 */
+  border-color : blue;
+}
+form .field .showBtn{
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  display: none;
+  user-select: none;
+}
+form .indicator{
+  height: 10px;
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  display: none;
+}
+
+form .indicator span{
+  position: relative;
+  height: 100%;
+  width: 100%;
+  /* 
+  5. span 조건 미충족 시의 css 설정하기
+  컬러, 모서리 
+  */
+  background-color : #ccc;
+  border-radius : 5px;
+  
+}
+
+form .indicator span:nth-child(2){
+  margin: 0 3px;
+}
+
+form .indicator span.active:before{
+  position: absolute;
+  content: '';
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  border-radius: 5px;
+}
+
+/*
+6. weak, medium, strong 별로 박스 색상 설정하기
+*/
+
+.indicator span.weak:before{
+  background-color: #FF6489;
+  border-radius : 2px;  
+}
+.indicator span.medium:before{
+  background-color: #F0C34F;
+    border-radius: 2px;
+}
+.indicator span.strong:before{
+  background-color: #5DD9B4;
+    border-radius: 2px;
+}
+
+form .text{
+  display: none;
+  /* 
+  7. 안내 문구 텍스트 설정하기
+  여백, 두께, 크기
+  */
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  font-size : 15px;
+}
+
+form .text.weak{
+  color: #FF6489;
+  font-weight: bold;
+}
+
+form .text.medium{
+  color : #F0C34F;
+  font-weight : bold;
+}
+form .text.strong{
+  color : #5dd9B4;
+  font-weight : bold;
+}
+
+/* 8. 텍스트 색상 설정하기 */

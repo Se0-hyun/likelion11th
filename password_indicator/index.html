@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
+  <head>
+      <meta charset="utf-8">
+      <title>Password Strength Checker JavaScript</title> 
+      <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+      <div class="container">
+        <header>Password Strength Indicator</header>
+        <form action="#">
+            <div class="field">
+              <!--키를 누르고 뗄 때 이벤트를 감지하는 Password input 생성하기 / js function trigger 사용-->
+              <input type="password" id="passwordInput">
+              <span class="showBtn">SHOW</span>
+            </div>
+            <div class="indicator">
+              <span class="weak"></span>
+              <span class="medium"></span>
+              <span class="strong"></span>
+            </div>
+            <div class="text"></div>
+        </form>
+      </div>
+
+      <script>
+        const passwordInput = document.getElementById('passwordInput');
+        const showBtn = document.querySelector('.showBtn');
+
+        showBtn.addEventListener('mousedown', () => {
+            passwordInput.type = 'text';
+        });
+
+        showBtn.addEventListener('mouseup', () => {
+            passwordInput.type = 'password';
+        });
+
+        const input = document.getElementById("passwordInput");
+
+        let regExpWeak = /[a-z]/;
+        let regExpMedium = /[A-Z]/;
+        let regExpStrong = /[!@#$%^&*?_~-()]/;
+        
+        function trigger() {
+        const indicator = document.querySelector(".indicator");
+        const indicatorSpans = document.querySelectorAll(".indicator > span");
+        const text = document.querySelector(".text");
+        const showBtn = document.querySelector(".showBtn");
+          
+          if(input.value != ""){
+            indicator.style.display = "block";
+            indicator.style.display = "flex";
+
+            const password = input.value;
+
+            const weak =
+              password.length <= 3 &&
+              (regExpWeak.test(password) ||
+                regExpMedium.test(password) ||
+                regExpStrong.test(password));
+
+            const medium =
+              password.length >= 4 &&
+              password.length <= 5 &&
+              ((regExpWeak.test(password) ? 1 : 0) +
+                (regExpMedium.test(password) ? 1 : 0) +
+                (regExpStrong.test(password) ? 1 : 0) >= 2);
+            
+            const strong =
+              password.length >= 6 &&
+              regExpWeak.test(password) &&
+              regExpMedium.test(password) &&
+              regExpStrong.test(password);
+
+            let no;
+            
+            if (weak) {
+              no = 1;
+            } else if (medium) {
+              no = 2;
+            } else if (strong) {
+              no = 3;
+            }
+
+            if(no==1){
+              indicatorSpans[0].classList.add("active");
+              text.style.display = "block";
+              //  안내문구 출력
+              text.innerText = "Your password is too weak.";
+              //  박스 출력
+              indicator.style.border= "1px solid #FF6489";
+            }
+
+            if(no==2){
+              //medium 조건 충족할 시
+              indicatorSpans[1].classList.add("active");
+              text.style.display = "block";
+              text.innerText = "Your password is medium.";
+              indicator.style.border = "1px solid #F0C34F";
+            } else{
+              /* .add된 이벤트 지워주기 */
+              showBtn.onclick = null;
+            }
+
+            if(no==3){
+              //strong 조건 충족할 시
+              indicatorSpans[2].classList.add("active");
+              text.style.display = "block";
+              text.innerText = "Your password is strong.";
+              indicator.style.border = "1px solid #5DD9B4";
+            }else{
+              /* .add된 이벤트 지워주기 */
+              showBtn.onclick = null;
+            }
+
+            showBtn.style.display = "block";
+            showBtn.onclick = function(){
+              if(input.type == "password"){
+                //password type text로 설정
+                input.type = "text";
+                //showBtn => HIDE로 설정
+                showBtn.innerText = "HIDE";
+                // 색상 설정
+                showBtn.style.color = #5364FF;
+              }else{
+                //password type password로 설정
+                input.type = "password";
+                //showBtn => SHOW로 설정
+                showBtn.innerText = "SHOW";
+                // 색상 설정
+                showBtn.style.color = "";
+              }
+            }
+          }else{
+            indicator.style.display = "none";
+            text.style.display = "none";
+            showBtn.style.display = "none";
+          }
+        }
+      </script>
+  </body>
+</html>
